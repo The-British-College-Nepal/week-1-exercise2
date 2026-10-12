@@ -21,8 +21,13 @@ public class FleetManager {
      * @param vehicle vehicle to add (must not be null)
      */
     public void addVehicle(Vehicle vehicle) {
-        // TODO [Step 3.1]: If vehicle is null, throw IllegalArgumentException
-        // TODO [Step 3.2]: Add vehicle to vehicles list
+        // Step 3.1: Reject null
+        if (vehicle == null) {
+            throw new IllegalArgumentException("Vehicle cannot be null");
+        }
+
+        // Step 3.2: Add to the fleet
+        vehicles.add(vehicle);
     }
 
     public int getVehicleCount() {
@@ -36,8 +41,12 @@ public class FleetManager {
      * @return total passenger capacity
      */
     public int getTotalPassengerCapacity() {
-        // TODO [Step 3.3]: Loop through vehicles and sum each vehicle's getPassengerCapacity()
-        return 0;
+        // Step 3.3: Sum capacities
+        int total = 0;
+        for (Vehicle v : vehicles) {
+            total += v.getPassengerCapacity();
+        }
+        return total;
     }
 
     /**
@@ -46,8 +55,17 @@ public class FleetManager {
      * @return the fastest Vehicle, or null if fleet is empty
      */
     public Vehicle findFastestVehicle() {
-        // TODO [Step 3.4]: Return the vehicle with highest maxSpeed, or null if list is empty
-        return null;
+        // Step 3.4: Find highest maxSpeed
+        if (vehicles.isEmpty()) {
+            return null;
+        }
+        Vehicle fastest = vehicles.get(0);
+        for (Vehicle v : vehicles) {
+            if (v.getMaxSpeed() > fastest.getMaxSpeed()) {
+                fastest = v;
+            }
+        }
+        return fastest;
     }
 
     public List<Vehicle> getVehicles() {
